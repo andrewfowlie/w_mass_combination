@@ -97,7 +97,7 @@ def plot(data):
     ax[1].set_xlabel("$M_W$ [MeV]")
 
     # footnote
-    footnote = r"${}^*$ Does not include $13.5\,\textrm{MeV}$ shift in CDF 2002-2007 (2.2/fb)"
+    footnote = "${}^*$ Does not include $13.5\,\textrm{MeV}$ shift in CDF 2002-2007 (2.2/fb)"
     ax[0].text(0, -3., footnote, horizontalalignment="left", fontsize=10)
 
 if __name__ == "__main__":
