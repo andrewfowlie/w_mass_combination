@@ -21,9 +21,5 @@ jobs:
         with:
           name: combination
           path: mw.pdf
-
-      - name: Install dependencies
-        run: pip install numpy scipy matplotlib pyyaml sorcery
-
-      - name: Make plot
+      - name: combination
         run: python3 mw.py
