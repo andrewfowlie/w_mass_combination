@@ -14,16 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
-          with:
-            python-version: '3.8.10'
-            cache: 'pip'
+        with:
+          python-version: '3.8.10'
+          cache: 'pip'
       - uses: actions/upload-artifact@v3
-          with:
-            name: combination
-            path: mw.pdf
+        with:
+          name: combination
+          path: mw.pdf
 
       - name: Install dependencies
-         run: pip install numpy scipy matplotlib pyyaml sorcery
+        run: pip install numpy scipy matplotlib pyyaml sorcery
 
       - name: Make plot
-         run: python3 mw.py
+        run: python3 mw.py
