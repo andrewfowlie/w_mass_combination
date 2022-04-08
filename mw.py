@@ -4,6 +4,7 @@ Combine and plot W boson mass data
 """
 
 from distutils.spawn import find_executable
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import yaml
@@ -39,11 +40,13 @@ def plot(data):
 
     _, ax = plt.subplots(1, 2,
                          sharey=True,
-                         gridspec_kw={'width_ratios': [1, 2]},
+                         gridspec_kw={"width_ratios": [1, 2]},
                          figsize=(7, 7))
     plt.subplots_adjust(left=0.05, top=0.95, right=0.85, bottom=0.2, wspace=0., hspace=0.)
 
-    for i, d in enumerate(reversed(data.values())):
+    plot_data = [d for d in data.values() if d.get("plot", True)]
+
+    for i, d in enumerate(reversed(plot_data)):
 
         color = d.get("color", "black")
 
@@ -55,14 +58,14 @@ def plot(data):
 
         if d.get("emphasize"):
             x = [d["mu"] - d["sigma"], d["mu"] + d["sigma"]]
-            ax[1].fill_between(x, y1=len(data) - 0.5, y2=-0.5, color=color, alpha=0.25, lw=0)
+            ax[1].fill_between(x, y1=len(plot_data) - 0.5, y2=-0.5, color=color, alpha=0.25, lw=0)
             ax[1].axvline(d["mu"], color=color, lw=1, ls="--", alpha=0.5)
 
         # labels with name and number
 
         left = d["label"]
-        int_mu = int(round(d['mu']))
-        int_sigma = int(round(d['sigma']))
+        int_mu = int(round(d["mu"]))
+        int_sigma = int(round(d["sigma"]))
         right = rf"${int_mu} \pm {int_sigma}$"
 
         if d.get("emphasize") and plt.rcParams['text.usetex']:
@@ -82,7 +85,7 @@ def plot(data):
     ax[1].spines['left'].set_visible(False)
 
     # axis limits
-    ax[1].set_ylim(-0.5, len(data) - 0.5)
+    ax[1].set_ylim(-0.5, len(plot_data) - 0.5)
     xlim = (80300, 80600)
     ax[1].set_xlim(xlim)
 
@@ -100,13 +103,29 @@ def plot(data):
     footnote = "${}^*$ Does not include 13.5 MeV shift in CDF 2002-2007 (2.2/fb)"
     ax[0].text(0, -3., footnote, horizontalalignment="left", fontsize=10)
 
+def load(file_name):
+    """
+    @reurns Data from yaml file
+    """
+    with open(file_name) as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for d in data.values():
+        try:
+            d["sigma"] = np.linalg.norm(d["sigma"])
+        except KeyError:
+            pass
+    return data
+
 if __name__ == "__main__":
 
     # combination
 
-    with open("mw.yml") as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+    try:
+        file_name = sys.argv[1]
+    except IndexError:
+        file_name = "mw.yml"
 
+    data = load(file_name)
     combination = combine(data)
     print(combination)
 
@@ -114,9 +133,9 @@ if __name__ == "__main__":
 
     data["our_combination"].update(combination)
 
-    if find_executable('pdflatex'):
-        plt.rcParams.update({'font.family': 'serif',
-                             'text.usetex': True,
-                             'font.size': 18})
+    if find_executable("pdflatex"):
+        plt.rcParams.update({"font.family": "serif",
+                             "text.usetex": True,
+                             "font.size": 18})
     plot(data)
     plt.savefig("mw.pdf")

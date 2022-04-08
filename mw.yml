@@ -1,3 +1,31 @@
+delphi:
+  plot: false
+  combine: false
+  mu: 80366.
+  sigma: [55., 28., 25., 9.]
+  reference: Abstract of https://arxiv.org/abs/0803.2534
+
+opal:
+  plot: false
+  combine: false
+  mu: 80415.
+  sigma: [42., 30., 9.]
+  reference: Abstract of https://arxiv.org/abs/hep-ex/0508060
+
+l3:
+  plot: false
+  combine: false
+  mu: 80270.
+  sigma: [46., 31.]
+  reference: Abstract of https://arxiv.org/abs/hep-ex/0511049
+
+aleph:
+  plot: false
+  combine: false
+  mu: 80440.
+  sigma: [43., 24., 9., 9.]
+  reference: Abstract of https://arxiv.org/abs/hep-ex/0605011
+
 lep:
   label: LEP
   mu: 80376.
