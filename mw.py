@@ -3,6 +3,7 @@ Combine and plot W boson mass data
 ==============================
 """
 
+from distutils.spawn import find_executable
 import numpy as np
 import matplotlib.pyplot as plt
 import yaml
@@ -112,8 +113,10 @@ if __name__ == "__main__":
     # plot
 
     data["our_combination"].update(combination)
-    plt.rcParams.update({'font.family': 'serif',
-                         'text.usetex': True,
-                         'font.size': 18})
+
+    if find_executable('pdflatex'):
+        plt.rcParams.update({'font.family': 'serif',
+                             'text.usetex': True,
+                             'font.size': 18})
     plot(data)
     plt.savefig("mw.pdf")
