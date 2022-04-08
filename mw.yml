@@ -1,0 +1,95 @@
+lep:
+  label: LEP
+  mu: 80376.
+  sigma: 33.
+  reference: https://arxiv.org/abs/1302.3415
+
+lhcb:
+  label: LHCb 2021
+  mu: 80354.
+  sigma: 32.
+  reference: http://arxiv.org/abs/1701.07240
+
+atlas:
+  label: ATLAS 2018
+  mu: 80370.
+  sigma: 19.
+  reference:  https://arxiv.org/abs/1701.07240
+
+d0_92_95:
+  label: D0 1992-1995 (95/pb)
+  mu: 80478.
+  sigma: 83.
+  reference: Fig. 1 of https://arxiv.org/abs/1307.7627
+
+d0_02_09:
+  label: D0 2002-2009 (4.3/fb)
+  mu: 80376.
+  sigma: 23.
+  reference:  Fig. 1 of https://arxiv.org/abs/1307.7627
+
+cdf_88_95:
+  label: CDF 1988-1995 (107/pb)
+  mu: 80432.
+  sigma: 79.
+  reference: Fig. 1 of https://arxiv.org/abs/1307.7627
+
+cdf_02_07:
+  label: CDF 2002-2007 (2.2/fb)${}^*$
+  mu: 80387
+  sigma: 19.
+  combine: false
+  reference: https://arxiv.org/abs/1203.0275
+
+cdf_02_07_adjusted:
+  label: CDF 2002-2007 (2.2/fb)
+  mu: 80400.5
+  sigma: 19
+  combine: false
+  reference: https://www.science.org/doi/10.1126/science.abk1781
+
+cdf_02_11:
+  label: CDF 2002-2011 (8.8/fb)
+  mu: 80433.5 
+  sigma: 9.4
+  color: navy
+  emphasize: true
+  reference: https://www.science.org/doi/10.1126/science.abk1781
+
+tevatron:
+  label: Tevatron
+  mu: 80427.4
+  sigma: 8.9
+  combine: false
+  reference: https://www.science.org/doi/10.1126/science.abk1781
+
+tevatron_lep:
+  label: Tevatron + LEP
+  mu: 80424.2
+  sigma: 8.7
+  combine: false
+  reference: https://www.science.org/doi/10.1126/science.abk1781
+
+pdg:
+  label: PDG 2021${}^*$ 
+  mu: 80379.
+  sigma: 12.
+  color: royalblue
+  emphasize: true
+  combine: false
+  reference: https://pdglive.lbl.gov/DataBlock.action?node=S043M
+
+our_combination:
+  label: Simple combination
+  color: red
+  emphasize: true
+  combine: false
+
+sm:
+  label: SM
+  mu: 80354.
+  sigma: 7.
+  color: green
+  emphasize: true
+  combine: false
+  reference:  Table 1 of https://arxiv.org/abs/1803.01853
