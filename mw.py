@@ -1,6 +1,6 @@
 """
 Combine and plot W boson mass data
-==============================
+==================================
 """
 
 from distutils.spawn import find_executable
@@ -12,9 +12,9 @@ from scipy.stats import norm, chi2
 from sorcery import dict_of
 
 
-def combine(data):
+def weighted_least_squares(data):
     """
-    @returns Data combined using weighted chi-squared
+    @returns Data combined using weighted least-squares
     """
     w = np.array([1. / d["sigma"]**2 for d in data.values() if d.get("combine", True)])
     x = np.array([d["mu"] for d in data.values() if d.get("combine", True)])
@@ -26,10 +26,18 @@ def combine(data):
     chi_squared = np.dot(w, (x - mu)**2)
     reduced = chi_squared / df
 
+    if reduced > 1.:
+        delta0 = 3. * len(x)**0.5 * sigma
+        where = w**-0.5 < delta0
+        reduced_df = sum(where) - 1
+        S = (np.dot(w[where], (x[where] - mu)**2) / reduced_df)**0.5
+    else:
+        S = 1.
+
     p_value = chi2.sf(chi_squared, df=df)
     significance = norm.isf(p_value)
 
-    return dict_of(mu, sigma, chi_squared, df, reduced, p_value, significance)
+    return dict_of(mu, sigma, chi_squared, df, reduced, p_value, significance, S)
 
 def plot(data):
     """
@@ -126,7 +134,7 @@ if __name__ == "__main__":
         file_name = "mw.yml"
 
     data = load(file_name)
-    combination = combine(data)
+    combination = weighted_least_squares(data)
     print(combination)
 
     # plot
