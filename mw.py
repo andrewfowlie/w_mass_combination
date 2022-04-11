@@ -14,6 +14,8 @@ from sorcery import dict_of
 
 def weighted_least_squares(data):
     """
+    See Sec. 5.2 of https://pdg.lbl.gov/2021/reviews/rpp2021-rev-rpp-intro.pdf
+
     @returns Data combined using weighted least-squares
     """
     w = np.array([1. / d["sigma"]**2 for d in data.values() if d.get("combine", True)])
